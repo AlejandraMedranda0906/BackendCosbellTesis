@@ -1,16 +1,13 @@
 package com.cosbell.spa.dto
 
+import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
-
-
 
 data class LoginRequest(
+    @field:NotBlank(message = "El correo es obligatorio")
+    @field:Email(message = "El correo no es válido")
+    val email: String,
 
-@NotNull(message = "email is required") @NotBlank(message = "email cannot be blank")
-val email: String? = null,
-
-@NotNull(message = "password is required") @NotBlank(message = "password cannot be blank")
-val password: String
-
+    @field:NotBlank(message = "La contraseña es obligatoria")
+    val password: String
 )

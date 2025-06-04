@@ -20,7 +20,6 @@ class SecurityConfig(
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
     private val userDetailsServiceImpl: UserDetailsServiceImpl
 ) {
-
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
@@ -31,11 +30,9 @@ class SecurityConfig(
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors()
-            .and()
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("/auth/**").permitAll() // Público- registro y login
+                it.requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             }

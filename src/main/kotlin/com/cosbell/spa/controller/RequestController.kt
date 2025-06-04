@@ -1,4 +1,4 @@
-package com.cosbell.spa.controller
+/*package com.cosbell.spa.controller
 
 import com.cosbell.spa.dto.LoginRequest
 import com.cosbell.spa.dto.RegisterRequest
@@ -10,19 +10,17 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-
 @RestController
 @RequestMapping("/auth")
-public class AuthController @Autowired constructor(
+ class RequestController @Autowired constructor(
     private val authService: AuthService
 ) {
     @PostMapping("/register")
     fun register(@RequestBody dto: RegisterRequest): ResponseEntity<SuccessResponse> {
         return ResponseEntity.ok(authService.register(dto))
-    }
+    }*/
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     fun login(@RequestBody dto: LoginRequest): ResponseEntity<SuccessResponse> {
         return ResponseEntity.ok(authService.login(dto))
-    }
-}
+    }} */

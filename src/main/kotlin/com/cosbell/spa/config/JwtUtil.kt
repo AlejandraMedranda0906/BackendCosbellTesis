@@ -1,66 +1,29 @@
 package com.cosbell.spa.config
 
-
-import java.util.Base64
-
-class JwtUtil {
-    fun generateToken(email: String): String {
-        // Return dummy token
-        return Base64.getEncoder().encodeToString(("token-for-" + email).toByteArray())
-    }
-}
-
-
-
-
-
-
-
-
-/*import org.springframework.stereotype.Component
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.exceptions.JWTVerificationException
-import com.auth0.jwt.interfaces.Claim
 import com.auth0.jwt.interfaces.DecodedJWT
-import org.springframework.security.core.Authentication
-import java.util.*
-import java.util.concurrent.TimeUnit
+import org.springframework.stereotype.Component
 
 @Component
 class JwtUtil {
 
-    private val SECRET_KEY = "s3cr3t"
-    private val ALGORITHM: Algorithm = Algorithm.HMAC256(SECRET_KEY)
+    private val secretKey = "tu_clave_secreta_segura"
 
-    fun create(authentication: Authentication): String {
-        // Si no usas roles, no es necesario incluir authorities en el token
+    fun generateToken(email: String): String {
+        val algorithm = Algorithm.HMAC256(secretKey)
         return JWT.create()
-            .withSubject(authentication.name) // username directo
-            .withIssuer("project-admin")
-            .withIssuedAt(Date())
-            .withExpiresAt(Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(15)))
-            .sign(ALGORITHM)
+            .withSubject(email)
+            .sign(algorithm)
     }
 
-    fun validateToken(token: String?): DecodedJWT {
-        if (token.isNullOrEmpty()) {
-            throw JWTVerificationException("Token is null or empty")
-        }
-
-        val verifier = JWT.require(ALGORITHM)
-            .withIssuer("project-admin")
-            .build()
-
-        return verifier.verify(token) ?: throw JWTVerificationException("Token invalid, not Authorized")
+    fun validateToken(token: String): DecodedJWT {
+        val algorithm = Algorithm.HMAC256(secretKey)
+        val verifier = JWT.require(algorithm).build()
+        return verifier.verify(token)
     }
 
-    fun extractUsername(decodedJWT: DecodedJWT): String = decodedJWT.subject
-
-    fun getSpecificClaim(decodedJWT: DecodedJWT, claimName: String): Claim = decodedJWT.getClaim(claimName)
-}*/
-
-
-
-
-
+    fun extractUsername(decodedJWT: DecodedJWT): String {
+        return decodedJWT.subject
+    }
+}

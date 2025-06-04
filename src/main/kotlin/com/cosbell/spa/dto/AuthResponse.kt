@@ -1,6 +1,8 @@
 package com.cosbell.spa.dto
 
 data class AuthResponse(
-    val token: String,
-    val role: String
+    val message: String? = null,
+    val email: String? = null,
+    val token: String? = null,
+    val role: String? = null
 )

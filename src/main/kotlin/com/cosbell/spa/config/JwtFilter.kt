@@ -1,6 +1,6 @@
 package com.cosbell.spa.config
 
-//import com.auth0.jwt.interfaces.DecodedJWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -20,7 +20,6 @@ class JwtFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         val authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
-
         if (!authorizationHeader.isNullOrEmpty() && authorizationHeader.startsWith("Bearer ")) {
             val jwtToken = authorizationHeader.substring(7)
 

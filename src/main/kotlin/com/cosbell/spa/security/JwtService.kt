@@ -1,7 +1,7 @@
 // JwtService.kt
 package com.cosbell.spa.security
 
-import com.cosbell.spa.entity.User
+/*import com.cosbell.spa.entity.User
 import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -24,4 +24,70 @@ class JwtService {
             .signWith(secretKey, SignatureAlgorithm.HS512)
             .compact()
     }
+}*/
+
+
+
+/*import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.interfaces.DecodedJWT
+import org.springframework.stereotype.Service
+
+@Service
+class JwtService {
+
+    private val secretKey = "mi_clave_secreta_segura"
+
+    fun extractUsername(token: String): String? {
+        return try {
+            val decodedJWT = validateToken(token)
+            decodedJWT.subject
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun validateToken(token: String): DecodedJWT {
+        val algorithm = Algorithm.HMAC256(secretKey)
+        return JWT.require(algorithm).build().verify(token)
+    }
+}*/
+
+
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.interfaces.DecodedJWT
+import com.cosbell.spa.entity.User
+import org.springframework.stereotype.Service
+import java.util.*
+
+@Service
+class JwtService {
+
+    private val secretKey = "mi_clave_secreta_segura"
+
+    fun generateToken(user: User): String {
+        val algorithm = Algorithm.HMAC256(secretKey)
+        return JWT.create()
+            .withSubject(user.email)
+            .withClaim("role", user.role.name)
+            .withIssuedAt(Date())
+            .withExpiresAt(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas
+            .sign(algorithm)
+    }
+
+    fun extractUsername(token: String): String? {
+        return try {
+            val decodedJWT = validateToken(token)
+            decodedJWT.subject
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun validateToken(token: String): DecodedJWT {
+        val algorithm = Algorithm.HMAC256(secretKey)
+        return JWT.require(algorithm).build().verify(token)
+    }
 }
+
