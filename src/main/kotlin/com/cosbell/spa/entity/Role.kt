@@ -1,14 +1,17 @@
 package com.cosbell.spa.entity
 
 import jakarta.persistence.*
-import java.security.Permission
 
-//@Entity
+@Entity
+@Table(name = "roles")
+data class Role(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
 
+    @Column(unique = true, nullable = false)
+    val name: String
+)
 
-enum class Role {
-    CLIENT, EMPLOYEE, ADMIN
-}
 
   /*  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

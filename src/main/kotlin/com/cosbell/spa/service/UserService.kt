@@ -5,16 +5,17 @@ import com.cosbell.spa.dto.LoginRequest
 import com.cosbell.spa.dto.RegisterRequest
 import com.cosbell.spa.entity.Role
 import com.cosbell.spa.entity.User
+import com.cosbell.spa.repository.RoleRepository
 import com.cosbell.spa.repository.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 
-@Service
+
+/*@Service
 class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun register(request: RegisterRequest): User {
+    fun createUser(request: RegisterRequest): User {
         if (userRepository.existsByEmail(request.email)) {
             throw Exception("El correo ya está registrado")
         }
@@ -42,7 +43,7 @@ class UserService(
             role = user.role.name
         )
         }
-    }
+    }*/
 
 
 
@@ -69,6 +70,52 @@ UserService(
         }
         return user}
 }*/
+
+
+@Service
+class UserService(
+    private val userRepository: UserRepository,
+    private val roleRepository: RoleRepository,
+    private val passwordEncoder: PasswordEncoder
+) {
+
+    fun createUser(request: RegisterRequest): User {
+        if (userRepository.existsByEmail(request.email)) {
+            throw Exception("El correo ya está registrado")
+        }
+
+        val role: Role = roleRepository.findByName(request.role.uppercase())
+            ?: throw Exception("Rol no encontrado")
+
+        val user = User(
+            name = request.name,
+            email = request.email,
+            password = passwordEncoder.encode(request.password),
+            role = role
+        )
+        return userRepository.save(user)
+    }
+
+    fun login(request: LoginRequest): AuthResponse {
+        val user = userRepository.findByEmail(request.email)
+            ?: throw Exception("Credenciales incorrectas")
+        if (!passwordEncoder.matches(request.password, user.password)) {
+            throw Exception("Credenciales incorrectas")
+        }
+        // Aquí deberías generar un JWT real, pero para pruebas:
+        return AuthResponse(
+            message = "Login exitoso",
+            email = user.email,
+            token = "fake-jwt-token",
+            role = user.role.name
+        )
+    }
+}
+
+
+
+
+
 
 
 

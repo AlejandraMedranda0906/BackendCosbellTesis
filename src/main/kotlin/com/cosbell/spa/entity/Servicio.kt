@@ -3,10 +3,11 @@ package com.cosbell.spa.entity
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "service")
 data class Servicio(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-    val nombre: String,
-    val duracion: Int, // minutos
-    val precio: Double
+    val name: String,
+    val duration: Int, // minutos
+    val price: Double //BigDecimal
 )

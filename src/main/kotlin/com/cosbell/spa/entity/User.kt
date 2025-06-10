@@ -17,9 +17,13 @@ data class User(
     @Column(nullable = false, length = 100)
     var password: String,
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    var role: Role = Role.CLIENT
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
+    val role: Role
+
+   // @Enumerated(EnumType.STRING)
+    //@Column(nullable = false, length = 20)
+    //var role: Role = Role.CLIENT
 )
 
    //var locked: Boolean = false,

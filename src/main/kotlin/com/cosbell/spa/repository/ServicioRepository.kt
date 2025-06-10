@@ -1,6 +1,6 @@
 package com.cosbell.spa.repository
 
-import com.cosbell.spa.entity.Servicio
 import org.springframework.data.jpa.repository.JpaRepository
+import java.security.Provider.Service
 
-interface ServicioRepository : JpaRepository<Servicio, Long>
+interface ServicioRepository : JpaRepository<Service, Long>
