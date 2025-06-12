@@ -2,6 +2,28 @@ package com.cosbell.spa.entity
 
 import jakarta.persistence.*
 
+/*@Entity
+@Table(name = "roles")
+data class Role(
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+
+    @Column(updatable = false)
+    val id: Long? = null,
+
+
+    @Column(unique = true, nullable = false)
+    val name: String? = null,
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",
+        referencedColumnName = "id",
+        insertable = false,
+        updatable = false,
+        )
+    var user: User? = null
+)*/
+
 @Entity
 @Table(name = "roles")
 data class Role(
@@ -11,6 +33,9 @@ data class Role(
     @Column(unique = true, nullable = false)
     val name: String
 )
+
+
+
 
 
   /*  @Id

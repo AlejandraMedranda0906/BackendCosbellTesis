@@ -1,7 +1,5 @@
 package com.cosbell.spa.config
 
-import com.cosbell.spa.security.JwtAuthenticationFilter
-import com.cosbell.spa.security.UserDetailsServiceImpl
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -13,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import com.cosbell.spa.security.JwtAuthenticationFilter
+import com.cosbell.spa.security.UserDetailsServiceImpl
 
 @Configuration
 @EnableWebSecurity
@@ -29,11 +29,9 @@ class SecurityConfig(
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http
-            .csrf { it.disable() }
+        http.csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("/auth/**").permitAll()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                it.requestMatchers("/api/auth/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {
@@ -45,3 +43,4 @@ class SecurityConfig(
         return http.build()
     }
 }
+

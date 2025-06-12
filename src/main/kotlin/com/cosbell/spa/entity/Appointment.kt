@@ -7,14 +7,15 @@ import java.time.LocalTime
 @Entity
 @Table(name = "appointment")
 data class Appointment(
-
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "service_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "service_id")
     val servicio: Servicio,
+
+    @Column(nullable = false)
+    val userId: Long,
 
     @Column(nullable = false)
     val date: LocalDate,
@@ -28,3 +29,4 @@ data class Appointment(
     @Column(nullable = false)
     val status: String = "PENDING"
 )
+

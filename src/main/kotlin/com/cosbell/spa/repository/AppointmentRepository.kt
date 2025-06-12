@@ -12,11 +12,8 @@ import java.time.LocalTime
 
 
 interface AppointmentRepository : JpaRepository<Appointment, Long> {
-    fun existsByServicioAndDateAndTime(
-        service: Servicio,
-        date: LocalDate,
-        time: LocalTime
-    ): Boolean
+    fun existsByServicioAndDateAndTime(servicio: Servicio, date: LocalDate, time: LocalTime): Boolean
     fun findByEmail(email: String): List<Appointment>
 }
+
 

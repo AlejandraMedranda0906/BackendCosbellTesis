@@ -1,39 +1,37 @@
 package com.cosbell.spa.controller
 
 import com.cosbell.spa.entity.Servicio
-import com.cosbell.spa.service.ServiceService
+import com.cosbell.spa.service.ServicioService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/servicio")
-class ServicioController(private val servicioService: ServiceService) {
-
+class ServicioController(private val servicioService: ServicioService) {
 
     @GetMapping
-    fun getAllServicios(): List<Servicio> = servicioService.findAll()
+    fun getAll(): List<Servicio> = servicioService.findAll()
 
     @GetMapping("/{id}")
-    fun getServicioById(@PathVariable id: Long): ResponseEntity<Servicio> {
+    fun getById(@PathVariable id: Long): ResponseEntity<Servicio> {
         val servicio = servicioService.findById(id)
-        return if (servicio != null) ResponseEntity.ok(servicio)
-        else ResponseEntity.notFound().build()
+        return if (servicio != null) ResponseEntity.ok(servicio) else ResponseEntity.notFound().build()
     }
 
     @PostMapping
-    fun createServicio(@RequestBody servicio: Servicio): Servicio = servicioService.save(servicio)
+    fun create(@RequestBody servicio: Servicio): Servicio = servicioService.save(servicio)
 
     @PutMapping("/{id}")
-    fun updateServicio(@PathVariable id: Long, @RequestBody updated: Servicio): ResponseEntity<Servicio> {
+    fun update(@PathVariable id: Long, @RequestBody updated: Servicio): ResponseEntity<Servicio> {
         val servicio = servicioService.findById(id)
         return if (servicio != null) {
-            val servicioActualizado = servicioService.save(updated.copy(id = id))
-            ResponseEntity.ok(servicioActualizado)
+            val actualizado = servicioService.save(updated.copy(id = id))
+            ResponseEntity.ok(actualizado)
         } else ResponseEntity.notFound().build()
     }
 
     @DeleteMapping("/{id}")
-    fun deleteServicio(@PathVariable id: Long): ResponseEntity<Void> {
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
         return if (servicioService.findById(id) != null) {
             servicioService.deleteById(id)
             ResponseEntity.noContent().build()

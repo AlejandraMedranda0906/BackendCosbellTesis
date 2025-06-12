@@ -57,15 +57,3 @@ class AuthController(
 
 
 
-   /* @PostMapping("/register")
-    fun register(@RequestBody request: RegisterRequest): ResponseEntity<AuthResponse> {
-        return ResponseEntity.ok(authService.register(request))
-    }*/
-
-
-
-    /*@PostMapping("/login")
-    fun login(@RequestBody request: LoginRequest): ResponseEntity<AuthResponse> {
-        return ResponseEntity.ok(authService.login(request))
-    } } */
-

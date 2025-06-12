@@ -5,6 +5,7 @@ import java.time.LocalTime
 
 data class AppointmentDTO(
     val serviceId: Long,
+    val userId: Long,
     val date: LocalDate,
     val time: LocalTime,
     val email: String

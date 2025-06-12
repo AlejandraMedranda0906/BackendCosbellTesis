@@ -31,12 +31,12 @@ class JwtAuthenticationFilter(
 
         if (email != null && SecurityContextHolder.getContext().authentication == null) {
             val userDetails = userDetailsServiceImpl.loadUserByUsername(email)
-
             val authToken = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
-                authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
-                SecurityContextHolder.getContext().authentication = authToken
+            authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
+            SecurityContextHolder.getContext().authentication = authToken
         }
 
         filterChain.doFilter(request, response)
     }
 }
+

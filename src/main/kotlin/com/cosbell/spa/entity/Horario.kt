@@ -1,17 +1,19 @@
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import java.time.LocalTime
+package com.cosbell.spa.entity
+
+import jakarta.persistence.*
 
 @Entity
+@Table(name = "schedule") // <-- tabla en inglés
 data class Horario(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-    val profesionalId: Long,
-    val diaSemana: String, // Ej: "LUNES"
-    val horaInicio: LocalTime,
-    val horaFin: LocalTime
+
+    @Column(name = "day", nullable = false)        // <-- campo en inglés
+    val dia: String,
+
+    @Column(name = "start_time", nullable = false) // <-- campo en inglés
+    val horaInicio: String,
+
+    @Column(name = "end_time", nullable = false)   // <-- campo en inglés
+    val horaFin: String
 )
-
-

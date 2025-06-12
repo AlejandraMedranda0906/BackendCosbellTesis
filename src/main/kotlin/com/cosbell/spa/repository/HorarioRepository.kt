@@ -1,6 +1,6 @@
 package com.cosbell.spa.repository
 
-import Horario
+import com.cosbell.spa.entity.Horario
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface HorarioRepository : JpaRepository<Horario, Long>

@@ -9,25 +9,8 @@ import java.time.LocalTime
 
 @RestController
 @RequestMapping("/api/appointment")
-class AppointmentController(
-    private val appointmentService: AppointmentService) {
-
-    /*data class CreateAppointmentRequest(
-        val serviceId: Long,
-        val date: LocalDate,
-        val time: LocalTime,
-        val email: String
-    )*/
-
+class AppointmentController(private val appointmentService: AppointmentService) {
     @PostMapping
-    fun createAppointment(@RequestBody request: AppointmentDTO): Appointment {
-        return appointmentService.createAppointment(request)
-
-            /*request.serviceId,
-            request.date,
-            request.time,
-            request.email,*/
-    }
-
+    fun create(@RequestBody request: AppointmentDTO): Appointment =
+        appointmentService.createAppointment(request)
 }
-

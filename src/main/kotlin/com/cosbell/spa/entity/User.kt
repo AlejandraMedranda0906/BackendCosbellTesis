@@ -17,13 +17,13 @@ data class User(
     @Column(nullable = false, length = 100)
     var password: String,
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", nullable = false)
-    val role: Role
-
-   // @Enumerated(EnumType.STRING)
-    //@Column(nullable = false, length = 20)
-    //var role: Role = Role.CLIENT
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "role_id")]
+    )
+    val roles: List<Role> = listOf()
 )
 
    //var locked: Boolean = false,

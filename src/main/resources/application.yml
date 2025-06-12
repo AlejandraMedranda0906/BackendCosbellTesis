@@ -24,6 +24,8 @@ spring:
         maximum-pool-size: 5
         idle-timeout: 600000
         max-lifetime: 1800000
+
+
   jpa:
     hibernate:
       ddl-auto: validate
